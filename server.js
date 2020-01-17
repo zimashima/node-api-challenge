@@ -2,14 +2,14 @@ const express = require('express')
 
 const actionRouter = require('./action/actionRouter')
 const projectRouter = require('./project/projectRouter')
-// const cors = require('cors')
+const cors = require('cors')
 
 const server = express()
 
 server.use(express.json())
+server.use(cors())
 server.use(logger)
 
-// server.use(cors)
 
 server.get("/", (req,res) => {
     res.send(`<h1>GOOD JOB</h1>`)

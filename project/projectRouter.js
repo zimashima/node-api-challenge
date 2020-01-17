@@ -1,6 +1,7 @@
 const express = require('express');
 
 const db = require('../data/helpers/projectModel.js')
+const actionDb = require('../data/helpers/actionModel.js')
 
 const router = express.Router();
 
@@ -14,10 +15,21 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/:projectId", validateProjectId, async (req, res) => {
+router.get("/:id", validateProjectId, async (req, res) => {
     try {
         const project = await db.get(req.projectId)
         res.status(200).json(project)
+    }
+    catch {
+        res.status(500).json({ errorMessage: `500 error`})
+    }
+})
+
+router.get("/:id/actions", validateProjectId, async (req, res) => {
+    try {
+        const actions = await actionDb.get()
+        const projectActions = actions.filter(action => action.project_id === req.projectId)
+        res.status(200).json(projectActions)
     }
     catch {
         res.status(500).json({ errorMessage: `500 error`})
@@ -34,19 +46,19 @@ router.post("/", validateProjectInput, async (req, res) => {
       }
 })
 
-router.delete("/:projectId", validateProjectId, async (req, res) => {
+router.delete("/:id", validateProjectId, async (req, res) => {
     try {
         const project = await db.remove(req.projectId)
-        res.status(200).json({ message: `Project projectId: ${req.projectId} is successfully deleted`})
+        res.status(200).json({ message: `Project id: ${req.id} is successfully deleted`})
     }
     catch {
         res.status(500).json({ errorMessage: `500 error`})
     }
 })
 
-router.put("/:projectId", validateProjectId, validateProjectInput, async (req, res) => {
+router.put("/:id", validateProjectId, validateProjectInput, async (req, res) => {
     try {
-        const projects = await db.update(req.projectId, req.body)
+        const projects = await db.update(req.id, req.body)
         res.status(200).json(projects)
     }
     catch {
@@ -54,15 +66,15 @@ router.put("/:projectId", validateProjectId, validateProjectInput, async (req, r
     }
 })
 
-//mprojectIddleware
+//middleware
 
 async function validateProjectId(req, res, next){
-    const project = await db.get(req.params.projectId)
+    const project = await db.get(req.params.id)
     if (project){
-      req.projectId = project.projectId
+      req.projectId = project.id
       next()
     } else {
-      res.status(400).json({ message: "InvalprojectId Project projectId" })
+      res.status(400).json({ message: "Invalid Project Id" })
     }
 }
 
