@@ -8,6 +8,7 @@ const server = express()
 
 server.use(express.json())
 server.use(logger)
+
 // server.use(cors)
 
 server.get("/", (req,res) => {
@@ -22,8 +23,8 @@ function logger(req, res, next) {
     next();
   }
 
-server.use('/api/actions', actionRouter)
 server.use('/api/projects', projectRouter)
+server.use('/api/actions', actionRouter)
 
 
 module.exports = server

@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/:id", validateProjectId, async (req, res) => {
+router.get("/:projectId", validateProjectId, async (req, res) => {
     try {
         const project = await db.get(req.projectId)
         res.status(200).json(project)
@@ -34,17 +34,17 @@ router.post("/", validateProjectInput, async (req, res) => {
       }
 })
 
-router.delete("/:id", validateProjectId, async (req, res) => {
+router.delete("/:projectId", validateProjectId, async (req, res) => {
     try {
         const project = await db.remove(req.projectId)
-        res.status(200).json({ message: `Project Id: ${req.projectId} is successfully deleted`})
+        res.status(200).json({ message: `Project projectId: ${req.projectId} is successfully deleted`})
     }
     catch {
         res.status(500).json({ errorMessage: `500 error`})
     }
 })
 
-router.put("/:id", validateProjectId, validateProjectInput, async (req, res) => {
+router.put("/:projectId", validateProjectId, validateProjectInput, async (req, res) => {
     try {
         const projects = await db.update(req.projectId, req.body)
         res.status(200).json(projects)
@@ -54,15 +54,15 @@ router.put("/:id", validateProjectId, validateProjectInput, async (req, res) => 
     }
 })
 
-//middleware
+//mprojectIddleware
 
 async function validateProjectId(req, res, next){
-    const project = await db.get(req.params.id)
+    const project = await db.get(req.params.projectId)
     if (project){
-      req.projectId = project.id
+      req.projectId = project.projectId
       next()
     } else {
-      res.status(400).json({ message: "Invalid Project id" })
+      res.status(400).json({ message: "InvalprojectId Project projectId" })
     }
 }
 
