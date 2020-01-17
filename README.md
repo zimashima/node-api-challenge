@@ -38,15 +38,40 @@ Commit your code regularly and use descriptive messages. This helps both you (in
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [x] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+	----------------------------
+	
+		1) Middleware 2) Routing
+		
+	----------------------------
 
-- [ ] Describe a Resource?
+- [x] Describe Middleware?
 
-- [ ] What can the API return to help clients know if a request was successful?
+	----------------------------
+	
+	A middleware adds features to Express.js. A middleware is basically a function that takes in request, and process out the response as instructed. Everything we write is pretty much a middleware in disguise. In Express.js, middleware has access to both request and response and execute instruction. When using middlewares, devs have to be mindful about middlewares locations because it gets executed in order, as well as what a middleware returns.
+		
+	----------------------------
 
-- [ ] How can we partition our application into sub-applications?
+- [x] Describe a Resource?
+	----------------------------
+	
+	A resource can be any kind of information or content that can be accessed from a URL. 
+    Pretty much everything can be a resource. It can have multiple representation such as JSON, XML, text file, etc.
+	
+	----------------------------
+
+- [x] What can the API return to help clients know if a request was successful?
+	----------------------------
+	API can return response with the status whether it is success or failure
+	----------------------------
+
+- [x] How can we partition our application into sub-applications?
+	----------------------------
+	We can use an Express middleware call Routing. This will turn each route into a sub-application where we can write different instruction for each specific route
+	----------------------------
+
 
 ## Minimum Viable Product
 
